@@ -45,5 +45,50 @@ app.post('/users', (req, res) => {
   )
 })
 
+app.get('/users/:id', (req, res) => {
+  const id = req.params.id;
+  connection.query(
+      'SELECT * FROM users WHERE id = ?', [id],
+      function (err, results, fields) {
+          res.send(results)
+      }
+  )
+})
+
+app.post('/users', (req, res) => {
+  connection.query(
+      'INSERT INTO `users` (`fname`, `lname`, `email`, `password`, `avatar`) VALUES (?, ?, ?, ?, ?)',
+      [req.body.fname, req.body.lname, req.body.emsil, req.body.password, req.body.avatar],
+       function (err, results, fields) {
+          if (err) {
+              console.error('Error in POST /users:', err);
+              res.status(500).send('Error adding user');
+          } else {
+              res.status(201).send(results);
+          }
+      }
+  )
+})
+
+app.put('/users', (req, res) => {
+  connection.query(
+      'UPDATE `users` SET `fname`=?, `lname`=?, `email`=?, `password`=?, `avatar`=? WHERE id =?',
+      [req.body.fname, req.body.lname, req.body.email, req.body.password, req.body.avatar, req.body.id],
+       function (err, results, fields) {
+          res.send(results)
+      }
+  )
+})
+
+app.delete('/users', (req, res) => {
+  connection.query(
+      'DELETE FROM `users` WHERE id =?',
+      [req.body.id],
+       function (err, results, fields) {
+          res.send(results)
+      }
+  )
+})
+
 
 app.listen(process.env.PORT || 3000)
