@@ -30,4 +30,20 @@ app.get('/users', (req, res) => {
   )
 })
 
+app.post('/users', (req, res) => {
+  connection.query(
+      'INSERT INTO `users` (`fname`, `lname`, `email`, `password`, `avatar`) VALUES (?, ?, ?, ?, ?)',
+      [req.body.fname, req.body.lname, req.body.email, req.body.password, req.body.avatar],
+       function (err, results, fields) {
+          if (err) {
+              console.error('Error in POST /users:', err);
+              res.status(500).send('Error adding user');
+          } else {
+              res.status(201).send(results);
+          }
+      }
+  )
+})
+
+
 app.listen(process.env.PORT || 3000)
