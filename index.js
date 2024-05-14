@@ -88,7 +88,7 @@ app.get('/download', (req, res) => {
   app.post('/download', (req, res) => {
     connection.query(
         'INSERT INTO `Download` (`ID`, `Name`, `img_url`) VALUES (?, ?, ?)',
-        [req.body.id, req.body.name, req.body.img_url],
+        [req.body.id, req.body.Name, req.body.img_url],
          function (err, results, fields) {
             if (err) {
                 console.error('Error in POST /download:', err);
@@ -113,7 +113,7 @@ app.put('/download', (req, res) => {
 app.delete('/download', (req, res) => {
     connection.query(
         'DELETE FROM `Download` WHERE Name =?',
-        [req.body.name],
+        [req.body.Name],
          function (err, results, fields) {
             res.send(results)
         }
