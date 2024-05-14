@@ -76,6 +76,50 @@ app.get('/movie', (req, res) => {
   )
 })
 
+app.get('/download', (req, res) => {
+    connection.query(
+        'SELECT * FROM Download',
+        function (err, results, fields) {
+            res.send(results)
+        }
+    )
+  })
+
+  app.post('/download', (req, res) => {
+    connection.query(
+        'INSERT INTO `Download` (`ID`, `Name`, `img_url`) VALUES (?, ?, ?)',
+        [req.body.id, req.body.name, req.body.img_url],
+         function (err, results, fields) {
+            if (err) {
+                console.error('Error in POST /download:', err);
+                res.status(500).send('Error adding download');
+            } else {
+                res.status(201).send(results);
+            }
+        }
+    )
+})
+
+app.put('/download', (req, res) => {
+    connection.query(
+        'UPDATE `Download` SET `Name`=?, `img_url`=?,',
+        [req.body.Name, req.body.img_url,],
+         function (err, results, fields) {
+            res.send(results)
+        }
+    )
+})
+
+app.delete('/download', (req, res) => {
+    connection.query(
+        'DELETE FROM `Download` WHERE Name =?',
+        [req.body.name],
+         function (err, results, fields) {
+            res.send(results)
+        }
+    )
+})
+
 app.listen(process.env.PORT || 3000, () => {
     console.log('CORS-enabled web server listening on port 3000')
 })
