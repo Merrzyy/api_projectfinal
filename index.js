@@ -102,8 +102,8 @@ app.get('/download', (req, res) => {
 
 app.delete('/download', (req, res) => {
     connection.query(
-        'DELETE FROM `Download` WHERE Name =?',
-        [req.body.Name],
+        'DELETE FROM `Download` WHERE Name =? AND img_url =?',
+        [req.body.Name, req.body.img_url],
          function (err, results, fields) {
             res.send(results)
         }
