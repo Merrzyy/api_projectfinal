@@ -87,8 +87,8 @@ app.get('/download', (req, res) => {
 
   app.post('/download', (req, res) => {
     connection.query(
-        'INSERT INTO `Download` (`ID`, `Name`, `Year`, `Genre`, `Sinopsis`, `Content_Rating`, `img_url`, `Episode`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-        [req.body.id, req.body.Name, req.body.year, req.body.genre, req.body.sisnopsis, req.body.content_rating, req.body.img_url, req.body.episode],
+        'INSERT INTO `Download` (`ID`, `Name`, `Year`, `Genre`, `Sinopsis`, `Content Rating`, `img_url`, `Episode`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+        [req.body.id, req.body.Name, req.body.Year, req.body.Genre, req.body.Sinopsis, req.body.Contentrating, req.body.img_url, req.body.Episode],
          function (err, results, fields) {
             if (err) {
                 console.error('Error in POST /download:', err);
