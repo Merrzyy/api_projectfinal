@@ -87,8 +87,8 @@ app.get('/download', (req, res) => {
 
   app.post('/download', (req, res) => {
     connection.query(
-        'INSERT INTO `Download` (`Name`, `img_url`) VALUES (?, ?)',
-        [req.body.Name, req.body.img_url],
+        'INSERT INTO `Download` (`ID`, `Name`, `Year`, `Genre`, `Sinopsis`, `Content_Rating`, `img_url`, `Episode`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+        [req.body.id, req.body.Name, req.body.year, req.body.genre, req.body.sisnopsis, req.body.content_rating, req.body.img_url, req.body.episode],
          function (err, results, fields) {
             if (err) {
                 console.error('Error in POST /download:', err);
@@ -96,16 +96,6 @@ app.get('/download', (req, res) => {
             } else {
                 res.status(201).send(results);
             }
-        }
-    )
-})
-
-app.put('/download', (req, res) => {
-    connection.query(
-        'UPDATE `Download` SET `Name`=?, `img_url`=?,',
-        [req.body.Name, req.body.img_url,],
-         function (err, results, fields) {
-            res.send(results)
         }
     )
 })
